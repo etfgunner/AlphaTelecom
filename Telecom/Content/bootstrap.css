@@ -4934,12 +4934,12 @@ a.list-group-item.active > .badge,
   font-weight: 200;
   line-height: 2.1428571435;
   color: inherit;
-  background-color: #eeeeee;
+  background-color: rgb(238, 238, 238, 0.8);
 }
 
 .jumbotron h1 {
   line-height: 1;
-  color: inherit;
+  color: rgb(15, 49, 68);
 }
 
 .jumbotron p {
