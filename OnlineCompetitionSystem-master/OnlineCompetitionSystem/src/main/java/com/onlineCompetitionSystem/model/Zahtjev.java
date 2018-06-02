@@ -24,6 +24,10 @@ public class Zahtjev {
 	
 	@Column(name = "text")
 	private int text;
+	
+	@Column(name = "status")
+	private String status;
+
 
 	@ManyToOne
     @JoinColumn(name = "userid")
@@ -61,5 +65,13 @@ public class Zahtjev {
 
 	private void setText(int text) {
 		this.text = text;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

@@ -12,5 +12,5 @@ public interface UslugeService {
 
     void deleteUsluga(Integer id);
     
-    Iterable<Usluga> FindUslugeByStatusLike(String status);
+    Iterable<Usluga> findUslugeByStatus(String status);
 }

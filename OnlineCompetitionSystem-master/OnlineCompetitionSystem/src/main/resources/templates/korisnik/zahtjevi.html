@@ -41,17 +41,20 @@
 	<div id="positionOfTheTable" th:if="${not #lists.isEmpty(usluge)}">
 				<table class="tablee">
 					<thead>
+					<a id="orangeLink" th:href="${'/zahtjev/new'}">Kreiraj novi zahtjev</a>
 						<tr>
 							<th>Ime korisnika</th>
 							<th>Prezime korisnika</th>
-							<th>Naziv usluge</th>
-							<th>Odobri</th>
+							<th>Naziv zahtjeva</th>
+							<th>Tekst zahtjeva</th>
+							<th>Status obrade zahtjeva</th>
 						</tr>
 						<tr  th:each="usluga,iterStat : ${usluge}">
 							<th>Sajra</th>
 							<th>Muratovic</th>
-							<th th:text="${usluga.naziv}">Naziv usluge</th>
-							<th><a id="orangeLink" th:href="${'/usluga/edit/' + usluga.id}">Odobri uslugu</a>
+							<th th:text="${usluga.naziv}">Naziv zahtjeva</th>
+							<th th:text="${usluga.naziv}">Tekst zahtjeva</th>
+							<th th:text="${usluga.naziv}">Status obrade zahtjeva</th>
 						</tr>
 					</thead>
 					<tbody>

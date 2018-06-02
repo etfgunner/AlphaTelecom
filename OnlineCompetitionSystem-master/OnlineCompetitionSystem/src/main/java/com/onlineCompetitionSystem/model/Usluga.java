@@ -31,7 +31,7 @@ public class Usluga {
 	private String opis;
 	
 	@Column(name = "status")
-	private String status="Na cekanju";
+	private String status;
 
 	
 	@ManyToMany(mappedBy = "usluge")

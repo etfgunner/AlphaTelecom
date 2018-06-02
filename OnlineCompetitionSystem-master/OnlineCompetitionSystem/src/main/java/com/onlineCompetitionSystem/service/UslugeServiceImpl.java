@@ -3,17 +3,17 @@ package com.onlineCompetitionSystem.service;
 import org.springframework.stereotype.Service;
 
 import com.onlineCompetitionSystem.model.Usluga;
-import com.onlineCompetitionSystem.repository.UslugaRepository;
+import com.onlineCompetitionSystem.repository.UslugeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service("uslugeService")
 public class UslugeServiceImpl implements UslugeService{
 	
-	private UslugaRepository uslugaRepository;
+	private UslugeRepository uslugaRepository;
 
     @Autowired
-    public void setUslugaRepository(UslugaRepository uslugaRepository) {
+    public void setUslugaRepository(UslugeRepository uslugaRepository) {
         this.uslugaRepository = uslugaRepository;
     }
 
@@ -38,9 +38,8 @@ public class UslugeServiceImpl implements UslugeService{
     }
     
     @Override
-    public Iterable<Usluga> FindUslugeByStatusLike(String status) {
-    	return uslugaRepository.FindByStatusEquals(status);
+    public Iterable<Usluga> findUslugeByStatus(String status) {
+    	return uslugaRepository.findByStatusEquals(status);
     }
-    
 
 }

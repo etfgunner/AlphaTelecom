@@ -55,6 +55,8 @@ public class UslugeController {
     //deaktiviraj ovu uslugu kod korisnika
     @RequestMapping("usluga/oduzmi/{id}")
     public String deaktUslugu(@PathVariable Integer id, Model model){
+    	uslugaService.getUslugaById(id).setStatus("Neodobren");
+   		uslugaService.saveUsluga(uslugaService.getUslugaById(id));
     	userService.findUserByUsername("smuratovic").getUsluge().remove(uslugaService.getUslugaById(id));
     	userService.saveUser(userService.findUserByUsername("smuratovic"));
         return "redirect:/korisnik/usluge";
@@ -63,14 +65,17 @@ public class UslugeController {
     //izlistaj aktivirane korisnikove usluge
     @RequestMapping(value = "/korisnik/usluge", method = RequestMethod.GET)
     public String mojeUslugeIzlistaj(Model model){
-    	/*Set<Usluga> usluge=new HashSet<Usluga>();
-    	for(Usluga usluga:userService.findUserByUsername("smuratovic").getUsluge()){
+    	Set<Usluga> usluge=userService.findUserByUsername("smuratovic").getUsluge();
+    	Set<Usluga> usluge1=new HashSet<>();
+    	//usluge1.add(userService.findUserByUsername("smuratovic").getUsluge().iterator().next());
+    	for(Usluga usluga:usluge){
     		if(usluga.getStatus().equals("Odobren"))
-    			usluge.add(usluga);
-    	}*/
-        model.addAttribute("usluge", userService.findUserByUsername("smuratovic").getUsluge());
+    			usluge1.add(usluga);
+    	}
+        model.addAttribute("usluge", usluge1);
         return "/korisnik/usluge";
     }
+    
     
 
 //adminove metode
@@ -89,6 +94,7 @@ public class UslugeController {
 
     @RequestMapping(value = "usluga", method = RequestMethod.POST)
     public String saveUsluga(Usluga usluga){
+    	usluga.setStatus("Neodobren");
     	uslugaService.saveUsluga(usluga);
         return "redirect:/administrator/home";
     }
@@ -102,16 +108,16 @@ public class UslugeController {
    //izlistaj sve usluge koje nisu odobrene korisniku
    @RequestMapping(value = "/administrator/usluge", method = RequestMethod.GET)
    public String izlistajKorisnikoveUsluge(Model model){
-	   /*Set<Usluga> usluge=userService.findUserByUsername("smuratovic").getUsluge();
-	   usluge.clear();
-	   Set<Usluga> usluge1=userService.findUserByUsername("smuratovic").getUsluge();
-	   
-	   for(Usluga usluga:usluge1){
-   			usluge.add(uslugaService.getUslugaById(4));
-   	}*/
-       model.addAttribute("usluge", userService.findUserByUsername("smuratovic").getUsluge());
+	   Iterable<Usluga> usluge=uslugaService.findUslugeByStatus("Neodobren");
+       model.addAttribute("usluge", usluge);
        return "/administrator/usluge";
    }
    
-
+ //odobri uz id od usluge
+   @RequestMapping("usluga/edit/{id}")
+   public String edit(@PathVariable Integer id, Model model){
+	   	uslugaService.getUslugaById(id).setStatus("Odobren");
+   		uslugaService.saveUsluga(uslugaService.getUslugaById(id));
+   		return "redirect:/administrator/usluge";
+   }
 }

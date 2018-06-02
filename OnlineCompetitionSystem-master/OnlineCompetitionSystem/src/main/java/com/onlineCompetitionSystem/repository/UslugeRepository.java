@@ -2,10 +2,13 @@ package com.onlineCompetitionSystem.repository;
 
 
 import com.onlineCompetitionSystem.model.Usluga;
+
+import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-public interface UslugaRepository extends CrudRepository<Usluga, Integer>{
+public interface UslugeRepository extends CrudRepository<Usluga, Integer>{
 
-	Iterable<Usluga> FindByStatusEquals(String status);
+	Iterable<Usluga> findByStatusEquals(String status);
 }
