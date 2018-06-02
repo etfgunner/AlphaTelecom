@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Admin Penel for Alpha Telecom</title>
+  <!-- Bootstrap core CSS-->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="../../css/sb-admin.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="home.html">Alpha Telecom - ADMIN</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Admin Panel" >
+              <a class="nav-link" th:href="@{/administrator/home}">
+                <i class="fa fa-fw fa-table"></i>
+                <span class="nav-link-text">Admin Panel</span>
+              </a>
+            </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Pregled usluga" >
+          <a class="nav-link" th:href="@{/administrator/pregledUsluga}">
+            <i class="fa fa-fw fa-dashboard"></i>
+            <span class="nav-link-text">Pregled usluga</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Postavi novu uslugu" >
+          <a class="nav-link" th:href="@{/usluga/new}">
+            <i class="fa fa-fw fa-table"></i>
+            <span class="nav-link-text">Postavi novu uslugu</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Odobri usluge" >
+          <a class="nav-link" th:href="@{/administrator/usluge}">
+            <i class="fa fa-fw fa-link"></i>
+            <span class="nav-link-text">Odobri usluge</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Odobri zahtjeve" >
+          <a class="nav-link" th:href="@{/administrator/zahtjevi}">
+            <i class="fa fa-fw fa-link"></i>
+            <span class="nav-link-text">Odobri zahtjeve</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Rijesi probleme" >
+          <a class="nav-link" th:href="@{/administrator/problemi}">
+          <i class="fa fa-fw fa-link"></i>
+          <span class="nav-link-text">Rijesi probleme</span>
+        </a>
+      </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Logout">
+          <a class="nav-link" href="/logout">
+            <i class="fa fa-fw fa-link"></i>
+            <span class="nav-link-text">Logout</span>
+          </a>
+        </li>
+      </ul>
+   </div>
+  </nav>
+  <div class="content-wrapper">
+      <div class="container-fluid">
+   <!-- Example DataTables Card-->
+   <div class="card mb-3">
+      <div class="card-header">
+        <i class="fa fa-table"></i> Prijavljeni problemi od strane korisnika:</div>
+      <div class="card-body">
+        <div class="table-responsive" th:if="${not #lists.isEmpty(problemi)}">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+					<th>Ime korisnika</th>
+					<th>Prezime korisnika</th>
+					<th>Naziv problema</th>
+					<th>Tekst problema</th>
+					<th>Incident za koji je vezan</th>
+					<th>Problem manje razmjere</th>
+					<th>Problem izvan nadleznosti</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="problem,iterStat : ${problemi}">
+				<td >Sajra</td>
+				<td >Muratovic</td>
+                <td th:text="${problem.naziv_problema}">Naziv problema</td>
+				<td th:text="${problem.text}">Tekst problema</td>
+				<td th:text="${problem.incident}">Incident</td>
+                <td><a th:href="${'/problem/edit/' + problem.id}"><button type="button" class="btn btn-danger" name="Submit" id="login-button">Proslijedi Super adminu</button></a></td>
+                <td><a th:href="${'/problem/editPr/' + problem.id}"><button type="button" class="btn btn-danger" name="Submit" id="login-button">Sazovi timski sastanak</button></a></td>
+              </tr>                     
+                    
+            </tbody>
+          </table>
+        </div>
+      </div>
+     </div>
+     </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Copyright © Alpha Telecom</small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+</body>
+</html>
