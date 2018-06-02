@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Telecom</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div id="header-wrapper">
+	<div id="header" class="container">
+		<div id="logo">
+			<h1><span class="fa fa-bug"></span><a href="#">Telecom</a></h1>
+		</div>
+		<div id="menu">
+			<ul>
+				<li><a accesskey="1" title="" th:href="@{/korisnik/home}">Ponuda usluga</a></li>
+				<li><a accesskey="2" title="" th:href="@{/korisnik/usluge}">Moje usluge</a></li>
+				<li><a accesskey="1" title="" th:href="@{/korisnik/home}">Moji zahtjevi</a></li>
+				<li><a accesskey="1" title="" th:href="@{/korisnik/home}">Prijava problema</a></li>
+				<li><a accesskey="1" title="" th:href="@{/korisnik/home}">Kontakt</a></li>
+			</ul>
+			<ul>
+				<li><a accesskey="4" title="" href="/logout"> Logout</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div id="featured-wrapper">
+		<div id="featured" class="extra2 container" th:if="${not #lists.isEmpty(usluge)}">
+			<div th:each="usluga,iterStat : ${usluge}">
+				
+			<div th:class="${iterStat.index%2 == 0}? 'ebox1':'ebox2'"> 
+				<div class="title">
+					<h2 id="h2icVeci" th:text="${usluga.naziv}">Naziv takmičenja</h2>
+					<span id="spanicVeci" class="byline">Elektrotehnički fakultet Sarajevo</span> </div>
+				<p>Pazite na predviđeno vrijeme za izradu svih pitanja ovog takmičenja, odnosno na preostalo vrijeme za predavanje upisanih konačnih odgovora! Morate predati urađeno prije isteka vremena! Sretno! </p>
+				<a th:href="${'/usluga/dodijeli/' + usluga.id}"><button type="submit" name="Submit" id="login-button">Aktiviraj uslugu</button></a><br><br>
+				</div>
+				 
+		</div>
+	</div>
+</div>
+</body>
+</html>

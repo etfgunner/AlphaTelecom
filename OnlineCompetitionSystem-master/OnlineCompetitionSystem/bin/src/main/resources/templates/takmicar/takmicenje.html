@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Online Competition System</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link
+	href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script th:inline="javascript">
+	var tim;
+	var min = [[${takmicenje.trajanje}]];
+	var sec = 60;
+	var f = new Date();
+	function f1() {
+		f2();
+		document.getElementById("starttime").innerHTML = "Ispit ste započeli u: "
+				+ f.getHours() + ":" + f.getMinutes();
+	}
+	function f2() {
+		if (parseInt(sec) > 0) {
+			sec = parseInt(sec) - 1;
+			document.getElementById("showtime").innerHTML = "Preostalo vam je još: "
+					+ min + " Minutes ," + sec + " Seconds";
+			tim = setTimeout("f2()", 1000);
+		} else {
+			if (parseInt(sec) == 0) {
+				min = parseInt(min) - 1;
+				if (parseInt(min) == 0) {
+					clearTimeout(tim);
+					location.href = "pregledanje";
+				} else {
+					sec = 60;
+					document.getElementById("showtime").innerHTML = "Preostalo vam je još: "
+							+ min + " Minutes ," + sec + " Seconds";
+					tim = setTimeout("f2()", 1000);
+				}
+			}
+
+		}
+	}
+	function pregledanje() {
+		var duzina=form1.getElementsByTagName('input').length;
+		var i;
+		var id=0;
+		var br_bodova=0;
+		for(i=0;i<duzina;i++)
+		{
+			var odgovor=document.getElementById(id).value;
+			var tacan_odgovor=document.getElementById(id+50).innerHTML;
+			if(odgovor==tacan_odgovor)
+		    {
+		    	br_bodova=br_bodova+1;
+		    }
+			id=id+1;
+		}
+		    document.getElementById("rezultat").innerHTML=br_bodova;
+		    window.open("https://localhost:8080/rezultati/new/"+br_bodova +"/"+[[${takmicenje.id}]]);
+	}
+</script>
+
+
+</head>
+<body onload="f1()">
+	<div id="header-wrapper">
+		<div id="header" class="container">
+			<div id="logo">
+				<h1>
+					<span class="fa fa-bug"></span><a href="#">Online
+						CompetitionSystem</a>
+				</h1>
+			</div>
+
+		</div>
+	</div>
+	<div id="positionOfCompetitionForm">
+		<div th:if="${not #lists.isEmpty(pitanja)}">
+			<form name="form1">
+				<div class="form-group">
+					<h1 th:text="${takmicenje.naziv}">Naziv takmičenja</h1>
+					<!--  <p id="rezultat">i</p>-->
+					<br>
+					<form id="form1" method="post" runat="server">
+						<div>
+							<table width="100%" align="center">
+								<tr>
+									<td>
+										<div id="starttime"></div>
+										<br />
+										<div id="endtime"></div>
+										<br />
+										<div id="showtime"></div>
+									</td>
+								</tr>
+								<tr>
+								</tr>
+							</table>
+							<br />
+						</div>
+					</form>
+				</div>
+				<div>
+				 <form th:object="${pregledanje}" th:action="@{'/pregledanje/'+ pitanje.id}" method="post">
+				<div class="form-group" th:each="pitanje,iterStat : ${pitanja}">
+					<label for="pwd" th:text="${pitanje.tekst_pitanja}">Pitanje</label> 
+					<label class="hidden" th:id="${iterStat.index}+50" th:text="${pitanje.tacan_odg}">Pitanje</label>
+					<input type="text" th:field="*{odabrani_odg}" class="form-control" th:id="${iterStat.index}">
+						
+				</div>
+				<!-- </form> -->
+				</div>
+				<button type="submit" onclick="pregledanje()" class="btn btn-default">Predaj</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

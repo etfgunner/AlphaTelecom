@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Online Competition System</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link
+	href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div id="header-wrapper">
+		<div id="header" class="container">
+			<div id="logo">
+				<h1>
+					<span class="fa fa-bug"></span><a href="#">Online Competition
+						System</a>
+				</h1>
+			</div>
+			<div id="menu">
+				<ul>
+					<li><a accesskey="1" title="" th:href="@{/admin/home}">Pregled
+							Takmičenja</a></li>
+					<li><a accesskey="2" title="" th:href="@{/takmicenje/new}">Napravi takmičenje</a></li>
+				</ul>
+				<ul>
+					<li><a  href="/logout"> Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!--  
+	<div id="positionOfCompetitionForm">
+	<h1>Dodaj novo pitanje:</h1>
+		  <div>
+			<form th:object="${pitanje}" th:action="@{/pitanje}" method="post">
+			 <input type="hidden" th:field="*{id}"/>
+				<div class="form-group">
+				
+					<label for="comment">Tekst pitanja:</label>
+					<textarea class="form-control" rows="5" id="comment" th:field="*{tekst_pitanja}"></textarea>
+				</div>
+				<div class="form-group">
+					<label for="pwd1">Ponuđeni odgovor 1:</label> 
+					<input
+						class="form-control" required="true" id="pwd1"/>
+				</div>
+				<div class="form-group">
+					<label for="pwd2">Ponuđeni odgovor 2:</label> <input
+						class="form-control" required="true" id="pwd2"/>
+				</div>
+				<div class="form-group">
+					<label for="pwd3">Ponuđeni odgovor 3:</label> <input
+						class="form-control" required="true" id="pwd3">
+				</div>
+				<div class="form-group">
+					<label for="pwd4">Tačan odgovor:</label> <input
+						class="form-control" required="true" id="pwd4" th:field="*{tacan_odg}"/>
+				</div>
+				  <!--  
+				<label for="sel1">Tačan odgovor (odaberite tačni od ponuđena
+					3):</label> <select class="form-control select" required="true" id="sel1">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+				</select>
+				--><!--
+				<div class="form-group">
+					<label>Ukupan broj bodova na ovom pitanju:</label> <input
+						type="number" class="form-control" required="true" th:field="*{broj_bodova}"/>
+						
+				</div>
+				<div class="form-group">
+					<label >ID takmicenja zasad:</label> <input
+						type="number" class="form-control" required="true" th:field="*{takmicenje}"/>
+						
+				</div>
+			  <button type="submit" class="btn btn-default">Dodaj</button>
+			</form>
+			
+		</div>
+	</div>
+	-->
+	<div id="positionOfCompetitionForm" th:if="${not #lists.isEmpty(pitanja)}">
+		<h1>Postojeća pitanja odabranog takmičenja:</h1>
+		<br>
+		<br>
+		<ul class="style1">
+			<li class="first" th:each="pitanje : ${pitanja}">
+				<h2>Tekst pitanja:</h2>
+				<p th:text="${pitanje.tekst_pitanja}">tekst_pitanja</p>
+				<h2>Tacan odgovor:</h2>
+                <p th:text="${pitanje.tacan_odg}">tacan_odg</p>
+                <h2>Broj bodova:</h2>
+                <p th:text="${pitanje.broj_bodova}">broj_bodova</p>
+				<a id="orangeLink" th:href="${'/pitanje/edit/' + pitanje.id}">Izmijeni Pitanje</a><br>
+				<a id="orangeLink" th:href="${'/pitanje/delete/' + pitanje.id}">Obriši pitanje</a>
+			</li>
+		</ul>
+	</div>
+	
+	
+</body>
+</html>
