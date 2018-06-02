@@ -20,10 +20,10 @@ public class Zahtjev {
 	
 	
 	@Column(name = "naziv_zahtjeva")
-	private int naziv_zahtjeva;
+	private String naziv_zahtjeva;
 	
 	@Column(name = "text")
-	private int text;
+	private String text;
 	
 	@Column(name = "status")
 	private String status;
@@ -51,27 +51,27 @@ public class Zahtjev {
 		this.user = user;
 	}
 
-	private int getNaziv_zahtjeva() {
-		return naziv_zahtjeva;
-	}
-
-	private void setNaziv_zahtjeva(int naziv_zahtjeva) {
-		this.naziv_zahtjeva = naziv_zahtjeva;
-	}
-
-	private int getText() {
-		return text;
-	}
-
-	private void setText(int text) {
-		this.text = text;
-	}
-	
 	public String getStatus() {
 		return status;
 	}
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getNaziv_zahtjeva() {
+		return naziv_zahtjeva;
+	}
+
+	public void setNaziv_zahtjeva(String naziv_zahtjeva) {
+		this.naziv_zahtjeva = naziv_zahtjeva;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
 	}
 }

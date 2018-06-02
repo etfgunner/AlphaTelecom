@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 public interface ProblemRepository extends CrudRepository<Problem, Integer>{
 
+	Iterable<Problem> findByStatusEquals(String status);
+
 }

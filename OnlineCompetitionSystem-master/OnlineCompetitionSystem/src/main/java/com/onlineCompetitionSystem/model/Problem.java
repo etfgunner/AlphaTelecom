@@ -20,10 +20,10 @@ public class Problem {
 	
 	
 	@Column(name = "naziv_problema")
-	private int naziv_problema;
+	private String naziv_problema;
 	
 	@Column(name = "text")
-	private int text;
+	private String text;
 	
 	@Column(name = "status")
 	private String status;
@@ -46,19 +46,19 @@ public class Problem {
 		return user;
 	}
 
-	private int getNaziv_problema() {
+	public String getNaziv_problema() {
 		return naziv_problema;
 	}
 
-	private void setNaziv_problema(int naziv_problema) {
+	public void setNaziv_problema(String naziv_problema) {
 		this.naziv_problema = naziv_problema;
 	}
 
-	private int getText() {
+	public String getText() {
 		return text;
 	}
 
-	private void setText(int text) {
+	public void setText(String text) {
 		this.text = text;
 	}
 

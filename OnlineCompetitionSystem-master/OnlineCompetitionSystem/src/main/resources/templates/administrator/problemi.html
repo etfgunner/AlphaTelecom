@@ -31,6 +31,8 @@
 					<li><a accesskey="1" title="" th:href="@{/administrator/home}">Pregled usluga</a></li>
 					<li><a accesskey="2" title="" th:href="@{/usluga/new}">Postavi novu uslugu</a></li>
 					<li><a accesskey="3" title="" th:href="@{/administrator/usluge}">Odobri usluge</a></li>
+					<li><a accesskey="4" title="" th:href="@{/administrator/zajtjevi}">Odobri zahtjeve</a></li>
+					<li><a accesskey="5" title="" th:href="@{/administrator/problemi}">Rijesi probleme</a></li>
 				</ul>
 				<ul>
 					<li><a accesskey="4" title="" href="/logout"> Logout</a></li>
@@ -38,25 +40,31 @@
 			</div>
 		</div>
 	</div>
-	<div id="positionOfTheTable" th:if="${not #lists.isEmpty(usluge)}">
+	
+	<div id="positionOfTheTable">
+	<div  th:if="${not #lists.isEmpty(problemi)}">
 				<table class="tablee">
 					<thead>
 						<tr>
 							<th>Ime korisnika</th>
 							<th>Prezime korisnika</th>
-							<th>Naziv usluge</th>
+							<th>Naziv problema</th>
+							<th>Tekst problema</th>
 							<th>Odobri</th>
+							
 						</tr>
-						<tr  th:each="usluga,iterStat : ${usluge}">
+						<tr  th:each="problem,iterStat : ${problemi}">
 							<th>Sajra</th>
 							<th>Muratovic</th>
-							<th th:text="${usluga.naziv}">Naziv usluge</th>
-							<th><a id="orangeLink" th:href="${'/usluga/edit/' + usluga.id}">Odobri uslugu</a>
+							<th th:text="${problem.naziv_problema}">Naziv problema</th>
+							<th th:text="${problem.text}">Tekst problema</th>
+							<th><a id="orangeLink" th:href="${'/problem/edit/' + problem.id}">Odobri uslugu</a>
 						</tr>
 					</thead>
 					<tbody>
 					</tbody>
 				</table>
+				</div>
 	</div>
 </body>
 </html>

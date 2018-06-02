@@ -13,18 +13,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.onlineCompetitionSystem.model.Usluga;
+import com.onlineCompetitionSystem.model.Zahtjev;
+import com.onlineCompetitionSystem.service.ZahtjeviService;
 import com.onlineCompetitionSystem.service.UserService;
-import com.onlineCompetitionSystem.service.UslugeService;
 
 @Controller
 public class ZahtjeviController {
 
-	private UslugeService uslugaService;
+	private ZahtjeviService zahtjevService;
 	private UserService userService;
 
     @Autowired
-    public void setUslugeService(UslugeService uslugaService) {
-        this.uslugaService = uslugaService;
+    public void setZahtjeviService(ZahtjeviService zahtjevService) {
+        this.zahtjevService = zahtjevService;
     }
     
     @Autowired
@@ -32,22 +33,40 @@ public class ZahtjeviController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/korisnik/home", method = RequestMethod.GET)
-    public String uslugeIzlistaj(Model model){
-        model.addAttribute("usluge", uslugaService.listAllUsluge());
-        return "/korisnik/home";
+    @RequestMapping(value = "/korisnik/zahtjevi", method = RequestMethod.GET)
+    public String zahtjeviIzlistaj(Model model){
+        model.addAttribute("zahtjevi", zahtjevService.listAllZahtjeve());
+        return "/korisnik/zahtjevi";
     }
     
-    @RequestMapping("usluga/new")
-    public String newUsluga(Model model){
-        model.addAttribute("usluga", new Usluga());
-        return "uslugaform";
+    @RequestMapping("zahtjev/new")
+    public String newZahtjev(Model model){
+        model.addAttribute("zahtjev", new Zahtjev());
+        return "zahtjevform";
     }
 
-    @RequestMapping(value = "usluga", method = RequestMethod.POST)
-    public String saveUsluga(Usluga usluga){
-    	usluga.setStatus("Neodobren");
-    	uslugaService.saveUsluga(usluga);
-        return "redirect:/administrator/home";
+    @RequestMapping(value = "zahtjev", method = RequestMethod.POST)
+    public String saveZahtjev(Zahtjev zahtjev){
+    	zahtjev.setStatus("Neodobren");
+    	zahtjevService.saveZahtjev(zahtjev);
+        return "redirect:/korisnik/zahtjevi";
+    }
+    
+    //adminovo
+    
+  //izlistaj sve usluge koje nisu odobrene korisniku
+    @RequestMapping(value = "/administrator/zahtjevi", method = RequestMethod.GET)
+    public String izlistajKorisnikoveZahtjeve(Model model){
+ 	   Iterable<Zahtjev> zahtjevi=zahtjevService.findZahtjevByStatus("Neodobren");
+        model.addAttribute("zahtjevi", zahtjevi);
+        return "/administrator/zahtjevi";
+    }
+    
+  //odobri uz id od usluge
+    @RequestMapping("zahtjev/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model){
+    	zahtjevService.getZahtjevById(id).setStatus("Odobren");
+    	zahtjevService.saveZahtjev(zahtjevService.getZahtjevById(id));
+    		return "redirect:/administrator/zahtjevi";
     }
 }

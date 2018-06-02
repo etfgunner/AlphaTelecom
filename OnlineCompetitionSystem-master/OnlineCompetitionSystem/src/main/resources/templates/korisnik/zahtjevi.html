@@ -28,9 +28,10 @@
 			</div>
 			<div id="menu">
 				<ul>
-					<li><a accesskey="1" title="" th:href="@{/administrator/home}">Pregled usluga</a></li>
-					<li><a accesskey="2" title="" th:href="@{/usluga/new}">Postavi novu uslugu</a></li>
-					<li><a accesskey="3" title="" th:href="@{/administrator/usluge}">Odobri usluge</a></li>
+					<li><a accesskey="1" title="" th:href="@{/korisnik/home}">Ponuda usluga</a></li>
+					<li><a accesskey="2" title="" th:href="@{/korisnik/usluge}">Moje usluge</a></li>
+					<li><a accesskey="1" title="" th:href="@{/korisnik/zahtjevi}">Moji zahtjevi</a></li>
+					<li><a accesskey="1" title="" th:href="@{/korisnik/problemi}">Prijava problema</a></li>
 				</ul>
 				<ul>
 					<li><a accesskey="4" title="" href="/logout"> Logout</a></li>
@@ -38,10 +39,12 @@
 			</div>
 		</div>
 	</div>
-	<div id="positionOfTheTable" th:if="${not #lists.isEmpty(usluge)}">
+	
+	<div id="positionOfTheTable">
+	<a th:href="${'/zahtjev/new'}"><button type="submit" name="Submit" id="login-button">Kreiraj novi zahtjev</button></a><br><br>
+	<div  th:if="${not #lists.isEmpty(zahtjevi)}">
 				<table class="tablee">
 					<thead>
-					<a id="orangeLink" th:href="${'/zahtjev/new'}">Kreiraj novi zahtjev</a>
 						<tr>
 							<th>Ime korisnika</th>
 							<th>Prezime korisnika</th>
@@ -49,17 +52,18 @@
 							<th>Tekst zahtjeva</th>
 							<th>Status obrade zahtjeva</th>
 						</tr>
-						<tr  th:each="usluga,iterStat : ${usluge}">
+						<tr  th:each="zahtjev,iterStat : ${zahtjevi}">
 							<th>Sajra</th>
 							<th>Muratovic</th>
-							<th th:text="${usluga.naziv}">Naziv zahtjeva</th>
-							<th th:text="${usluga.naziv}">Tekst zahtjeva</th>
-							<th th:text="${usluga.naziv}">Status obrade zahtjeva</th>
+							<th th:text="${zahtjev.naziv_zahtjeva}">Naziv zahtjeva</th>
+							<th th:text="${zahtjev.text}">Tekst zahtjeva</th>
+							<th th:text="${zahtjev.status}">Status obrade zahtjeva</th>
 						</tr>
 					</thead>
 					<tbody>
 					</tbody>
 				</table>
+				</div>
 	</div>
 </body>
 </html>
